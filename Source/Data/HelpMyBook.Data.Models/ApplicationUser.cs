@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using HelpMyBook.Common;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -17,11 +18,12 @@
         [MaxLength(120)]
         public string Name { get; set; }
 
-        [Range(15, 120)]
-        public int Age { get; set; }
-
         [MaxLength(500)]
         public string PersonalInfo { get; set; }
+
+        public int? BookId { get; set; }
+
+        public Book Book { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

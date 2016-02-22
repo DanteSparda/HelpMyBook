@@ -1,0 +1,48 @@
+﻿@model HelpMyBook.Web.ViewModels.UserProfile.UserInfoModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Welcome to your profile!</h1>
+
+<div class="row">
+    <div class="col-md-2">
+        <span>Username: <strong>@Model.Username</strong></span>
+        <br />
+        <span>Your cash: <strong>@Model.Money$</strong></span>
+        <img src=@Model.AvatarUrl style="width:200px;height:200px" alt="Avatar url" />
+    </div>
+    <div class="col-md-2">
+        <table>
+            <thead>
+                <tr>
+                    <td>This is your information</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td>Information:</td>
+                    <td>@Model.PersonalInfo</td>
+                </tr>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+        @Html.ActionLink("Change your information!", "ChangeInformation", "UserProfile", new { id = Model.Id }, new { @class = "btn btn-info" })
+    </div>
+    <div>
+        @if (Model.Book != null)
+        {
+            <span>You have a book!</span>
+        }
+        else
+        {
+            <span>You don't </span>
+        }
+    </div>
+</div>

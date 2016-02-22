@@ -11,7 +11,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-
+    using Common;
     [Authorize]
     public class AccountController : BaseController
     {
@@ -171,6 +171,7 @@
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+                user.AvatarUrl = GlobalConstants.AvatarInitialPicture;
                 var result = await this.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

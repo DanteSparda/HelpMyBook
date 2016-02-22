@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HelpMyBook.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace HelpMyBook.Services.Data.Contracts
 {
     public interface IUserService
     {
+        ApplicationUser GetUser(string id);
+        int BindBookAndUser(string userId, int bookId);
     }
 }

@@ -2,19 +2,21 @@
 {
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.Mvc;
+    using System.Web.UI.WebControls;
+    using Common;
     using Data.Models;
     using Infrastructure.Mapping;
     using Microsoft.AspNet.Identity;
     using Services.Data.Contracts;
     using ViewModels.Home;
-    using System.Text.RegularExpressions;
-    using Common;
-    using System.Web.UI.WebControls;
+
     public class HomeController : BaseController
     {
         private readonly IJokesService jokes;
+        private readonly IUserService users;
         private readonly ICategoriesService jokeCategories;
         private readonly IBookService books;
         private readonly IFilesService files;
@@ -23,12 +25,14 @@
             IJokesService jokes,
             IFilesService files,
             ICategoriesService jokeCategories,
-            IBookService books)
+            IBookService books,
+            IUserService users)
         {
             this.jokes = jokes;
             this.jokeCategories = jokeCategories;
             this.books = books;
             this.files = files;
+            this.users = users;
         }
 
         public ActionResult Index()
@@ -51,7 +55,16 @@
         [HttpGet]
         public ActionResult Upload()
         {
-            return View();
+            var user = this.users.GetUser(this.User.Identity.GetUserId());
+            if (user.BookId != null)
+            {
+                this.TempData.Clear();
+                this.TempData[GlobalConstants.MessageNameError] = "You've already created a book!";
+
+                return this.Redirect("/");
+            }
+
+            return this.View();
         }
 
         [HttpGet]
@@ -81,7 +94,6 @@
 
             var book = new Book
             {
-                CreatorId = userId
             };
 
             if (file != null)
@@ -116,7 +128,17 @@
                 }
             }
 
+            var user = this.users.GetUser(this.User.Identity.GetUserId());
+
             var creationResult = this.books.Create(book);
+
+            this.users.BindBookAndUser(user.Id, creationResult.Id);
+
+            user.BookId = creationResult.Id;
+
+            this.TempData.Clear();
+
+            this.TempData[GlobalConstants.MessageNameSuccess] = "You've successfuly created a book!";
 
             return this.RedirectToAction("Index");
         }

@@ -1,6 +1,7 @@
 ﻿namespace HelpMyBook.Web.ViewModels.Account
 {
     using System.ComponentModel.DataAnnotations;
+    using Common;
 
     public class RegisterViewModel
     {

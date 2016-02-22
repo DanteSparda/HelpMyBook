@@ -14,9 +14,5 @@ namespace HelpMyBook.Data.Models
         public int? BookFileId { get; set; }
 
         public virtual BookFile BookFile { get; set; }
-
-        public string CreatorId { get; set; }
-
-        public virtual ApplicationUser Creator { get; set; }
     }
 }
