@@ -1,4 +1,5 @@
-﻿using HelpMyBook.Data.Models;
+﻿using HelpMyBook.Data.Common.Models;
+using HelpMyBook.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace HelpMyBook.Services.Data.Contracts
     {
         ApplicationUser GetUser(string id);
         int BindBookAndUser(string userId, int bookId);
+        void Update(ApplicationUser user);
     }
 }

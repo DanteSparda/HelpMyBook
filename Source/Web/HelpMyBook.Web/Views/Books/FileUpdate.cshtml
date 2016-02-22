@@ -1,0 +1,43 @@
+﻿@model HelpMyBook.Web.ViewModels.Books.BookFileUpdateModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("FileUpdate", "Books", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <span class="text-warning">This will overwrite your old one!</span>
+    @Html.Partial("_FileUpload")
+    @Html.HiddenFor(m => m.BookId)
+    if (Model.BookFileId != null)
+    {
+        @Html.HiddenFor(m => m.BookFileId)
+    }
+    <div>
+        <input type="submit" value="Update your book" class="btn btn-primary" />
+    </div>
+}
+
+@section scripts{
+    <script>
+        $("#File").change(function () {
+            if ($('#File').val().length != 0) {
+                $("#downloadContainer").show();
+            }
+            else {
+                $("#downloadContainer").hide();
+            }
+            console.log(
+            );
+        });
+        window.reset = function (e) {
+            e.wrap('<form>').closest('form').get(0).reset();
+            e.unwrap();
+            $("#downloadContainer").hide();
+
+        }
+    </script>
+}

@@ -1,16 +1,9 @@
-﻿using HelpMyBook.Services.Data.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelpMyBook.Data.Models;
-using HelpMyBook.Data.Common;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity;
-
-namespace HelpMyBook.Services.Data
+﻿namespace HelpMyBook.Services.Data
 {
+    using Microsoft.AspNet.Identity;
+    using HelpMyBook.Data.Models;
+    using HelpMyBook.Services.Data.Contracts;
+
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> users;
@@ -30,8 +23,13 @@ namespace HelpMyBook.Services.Data
 
         public ApplicationUser GetUser(string id)
         {
-            var user = this.users.FindById(id);
+            var user = users.FindById(id);
             return user;
+        }
+
+        public void Update(ApplicationUser user)
+        {
+            users.Update(user);
         }
     }
 }

@@ -14,6 +14,8 @@
         [Required]
         public byte[] Content { get; set; }
 
+        public bool Downloadable { get; set; }
+
         [Required]
         [RegularExpression(ValidationConstants.FileExtentionRegex, ErrorMessage = "File format not acceptable!")]
         public string FileExtension { get; set; }

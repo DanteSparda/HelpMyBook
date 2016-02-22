@@ -1,0 +1,16 @@
+﻿<div>
+    <div>
+        <span>Supported formats: txt, doc, docx, pdf</span>
+        <input type="file" name="File" id="File" />
+        <div id="downloadContainer" style="display:none">
+            <label class="control-label" for="downloadable">Is your book downloadable?</label>
+            @Html.CheckBox("Downloadable")
+        </div>
+    </div>
+    <br />
+    <div>
+        <a class="btn btn-primary" onclick="reset($('#file'))">Clear file input</a>
+    </div>
+</div>
+
+

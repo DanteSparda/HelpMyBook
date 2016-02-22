@@ -1,0 +1,82 @@
+﻿@model  HelpMyBook.Web.ViewModels.Books.BookCreateModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div>
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+</div>
+
+@using (Html.BeginForm("Create", "Books", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-md-2 control-label">Description</label>
+            <div class="col-md-10">
+                @if (Model != null && Model.Description != null)
+                {
+                    <textarea id="description" class="form-control" name="description">@Model.Description</textarea>
+                }
+                else
+                {
+                    <textarea id="description" class="form-control" name="description"></textarea>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.RequredMoney, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.RequredMoney, new { @class = "form-control" })
+                <span class= "text-danger">Be careful! Once you create your book you won't be able to change the required money</span>
+            </div>
+        </div>
+        <div>
+          <!--Goes here-->
+            <span>You can upload your book.</span>
+            @Html.Partial("_FileUpload")
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-5">
+
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div class="col-md-2">
+        <input type="submit" value="Create new book" class="btn btn-primary" />
+    </div>
+}
+
+
+@section scripts{
+    <script>
+        $("#File").change(function () {
+            if ($('#File').val().length != 0) {
+                $("#downloadContainer").show();
+            }
+            else {
+                $("#downloadContainer").hide();
+            }
+            console.log(
+            );
+        });
+        window.reset = function (e) {
+            e.wrap('<form>').closest('form').get(0).reset();
+            e.unwrap();
+            $("#downloadContainer").hide();
+
+        }
+    </script>
+}

@@ -6,11 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelpMyBook.Web.ViewModels.Home
+namespace HelpMyBook.Web.ViewModels.Books
 {
     public class BookViewModel : IMapFrom<Book>
     {
         public int Id { get; set; }
+
+        public string Title { get; set; }
 
         public virtual BookFileViewModel BookFile { get; set; }
     }

@@ -31,5 +31,17 @@
         {
             return this.books.All();
         }
+
+        public IQueryable<Book> GetBookDetails(int id)
+        {
+            return this.books.All().Where(x => x.Id == id);
+        }
+
+        public Book Update(Book book)
+        {
+            this.books.Update(book);
+            this.books.Save();
+            return book;
+        }
     }
 }

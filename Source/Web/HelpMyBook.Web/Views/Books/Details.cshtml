@@ -1,0 +1,39 @@
+﻿@model HelpMyBook.Web.ViewModels.Books.BookDetailsViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">@Model.Title</h1>
+<div class="row">
+    <div class="col-md-5">
+        <div class="text-justify">
+            <span style="font-size:24px">Description of the book:</span>
+            <br />
+            <span style="font-size:23px"> @Model.Description</span>
+        </div>
+        <br /><br />
+        @if (Model.BookFile != null)
+            {
+                if (Model.BookFile.Downloadable)
+                {
+                @Ajax.ActionLink("Download this book", "DownloadBook", "Files", new { id = Model.BookFile.Id }, new AjaxOptions { HttpMethod = "GET" }, new { @class = "btn btn-lg btn-warning" })
+
+            }
+            else
+            {
+                <h3>The owner doesn't want to share his book!</h3>
+            }
+        }
+        else
+        {
+            <h3>The book isn't uploaded</h3>
+        }
+        @if (Model.OwnerLooking)
+            {
+            @Ajax.ActionLink("Edit book", "Edit", new { id = Model.Id }, new AjaxOptions { HttpMethod = "GET" }, new { @class = "btn btn-lg btn-primary" })
+        }
+    </div>
+    <div class="col-md-5 col-md-offset-2">
+        <h1>@Model.RequredMoney</h1>
+    </div>
+</div>

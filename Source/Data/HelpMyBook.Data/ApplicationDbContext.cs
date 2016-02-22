@@ -23,6 +23,8 @@
         public IDbSet<Book> Books { get; set; }
 
         public IDbSet<BookFile> BookFiles { get; set; }
+        
+        public IDbSet<Donation> Donations { get; set; }
 
         public static ApplicationDbContext Create()
         {

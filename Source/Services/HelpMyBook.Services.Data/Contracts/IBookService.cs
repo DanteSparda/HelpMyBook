@@ -10,6 +10,11 @@ namespace HelpMyBook.Services.Data.Contracts
     public interface IBookService
     {
         Book Create(Book book);
+
+        Book Update(Book book);
+
+        IQueryable<Book> GetBookDetails(int id);
+
         IQueryable<Book> GetBooks();
     }
 }

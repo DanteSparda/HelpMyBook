@@ -11,7 +11,7 @@
 
         public string Name { get; set; }
 
-        public Book Book { get; set; }
+        public int? BookId { get; set; }
 
         public string Username { get; set; }
 

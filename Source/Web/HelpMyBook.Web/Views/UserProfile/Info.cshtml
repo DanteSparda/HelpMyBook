@@ -5,44 +5,63 @@
 }
 
 <h1 class="text-center">Welcome to your profile!</h1>
-
+<br /><br />
 <div class="row">
-    <div class="col-md-2">
-        <span>Username: <strong>@Model.Username</strong></span>
-        <br />
-        <span>Your cash: <strong>@Model.Money$</strong></span>
+    <div class="col-md-4">
+        <div>Username: <strong>@Model.Username</strong></div>
+        <div>Your cash: <strong>@Model.Money$</strong></div><br />
         <img src=@Model.AvatarUrl style="width:200px;height:200px" alt="Avatar url" />
     </div>
-    <div class="col-md-2">
-        <table>
+    <div class="col-md-4 col-md-offset-1">
+        <table class="table table-bordered">
             <thead>
                 <tr>
-                    <td>This is your information</td>
+                    <td class="text-center" colspan="2"><strong>This is your information</strong></td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Name:</td>
-                    <td>@Model.Name</td>
+                    @if (Model.Name != null)
+                    {
+                        <td>@Model.Name</td>
+                    }
+                    else
+                    {
+                        <td>Not entered!</td>
+                    }
                 </tr>
                 <tr>
-                    <td>Information:</td>
-                    <td>@Model.PersonalInfo</td>
+                    <td>Personal Information:</td>
+                    @if (Model.PersonalInfo != null)
+                    {
+                        <td>@Model.PersonalInfo</td>
+                    }
+                    else
+                    {
+                        <td>Not entered!</td>
+                    }
                 </tr>
                 <tr>
+                    <td>Your book:</td>
+                    @if (Model.BookId == null)
+                    {
+                        <td>
+                            @Html.ActionLink("You don't have one. Create!", "Create", "Books", null, new { @class = "btn btn-primary" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink("Go to your book!", "Details", "Books", new { id = Model.BookId }, new { @class = "btn btn-success" })
+                        </td>
+                    }
                 </tr>
             </tbody>
         </table>
-        @Html.ActionLink("Change your information!", "ChangeInformation", "UserProfile", new { id = Model.Id }, new { @class = "btn btn-info" })
+        @Html.ActionLink("Change your information!", "ChangeInfo", "UserProfile", null, new { @class = "btn btn-info" })
     </div>
-    <div>
-        @if (Model.Book != null)
-        {
-            <span>You have a book!</span>
-        }
-        else
-        {
-            <span>You don't </span>
-        }
+    <div class="col-md-4 col-md-offset-1">
+
     </div>
 </div>

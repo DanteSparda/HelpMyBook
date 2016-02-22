@@ -1,0 +1,66 @@
+﻿@model HelpMyBook.Web.ViewModels.Books.BookDetailsViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("UpdateBookInfo", "Books", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <h4>Update your book</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <textarea name="Description" id="Description" class="form-control">@Model.Description</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-success" value="Update your book information" />
+                    @Html.ActionLink("Update your book file", "FileUpdate", "Books", new { bookId = Model.Id }, new { @class = "btn btn-success" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="posts-wrapper"></div>
+}
+
+
+@section scripts{
+<script>
+        $("#file").change(function () {
+            if ($('#file').val().length != 0) {
+                $("#downloadContainer").show();
+            }
+            else {
+                $("#downloadContainer").hide();
+            }
+            console.log(
+            );
+        });
+        window.reset = function (e) {
+            e.wrap('<form>').closest('form').get(0).reset();
+            e.unwrap();
+            $("#downloadContainer").hide();
+
+        }
+</script>
+
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+}

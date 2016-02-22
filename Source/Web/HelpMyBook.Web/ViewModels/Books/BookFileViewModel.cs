@@ -1,4 +1,4 @@
-﻿namespace HelpMyBook.Web.ViewModels.Home
+﻿namespace HelpMyBook.Web.ViewModels.Books
 {
     using HelpMyBook.Data.Models;
     using HelpMyBook.Web.Infrastructure.Mapping;
