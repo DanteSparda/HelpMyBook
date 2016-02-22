@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ValidationSummary("", new { @class = "text-danger" })
+
+@using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-5">
+            <input type="file" name="file" id="file" onchange="show(this)" />
+        </div>
+    </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-md-5">
+                    <input type="submit" value="Update Image" class="btn btn-primary" />
+                </div>
+            </div>
+}
