@@ -1,4 +1,5 @@
 ﻿@model HelpMyBook.Web.ViewModels.Books.BookDetailsViewModel
+    @using System.Globalization;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -33,7 +34,44 @@
             @Ajax.ActionLink("Edit book", "Edit", new { id = Model.Id }, new AjaxOptions { HttpMethod = "GET" }, new { @class = "btn btn-lg btn-primary" })
         }
     </div>
-    <div class="col-md-5 col-md-offset-2">
-        <h1>@Model.RequredMoney</h1>
+    <div class="col-md-6 col-md-offset-1">
+        <h2>Required amount: <span class="text-info">@Math.Floor(Model.RequredMoney).ToString("N", new CultureInfo("en-US"))$</span></h2>
+        <h2>Current amount:  <span class="text-info" id="targetSpan">Required money</span></h2>       
     </div>
 </div>
+
+@section scripts{
+
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="~/signalr/hubs"  type="text/javascript"></script>
+<!--SignalR script to update the chat page and send messages.-->
+<script>
+    $(function () {
+
+        // Proxy created on the fly
+        var job = $.connection.bookHub;
+
+        // Declare a function on the job hub so the server can invoke it
+        job.client.displayStatus = function () {
+            getData();
+        };
+
+        // Start the connection
+        $.connection.hub.start();
+        getData();
+    });
+
+    function getData() {
+        var $spanForResult = $('#targetSpan');
+        $.ajax({
+            url: '/BookHub/Result',
+            type: 'GET',
+            data: {id: @Model.Id},
+            datatype: 'json',
+            success: function (result) {     
+              $spanForResult.html(result + "$");
+            }
+        });
+    }
+</script>
+}
