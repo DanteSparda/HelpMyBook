@@ -2,6 +2,7 @@
     @using System.Globalization;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var modelForPartial = Model.MoneyPartialModel;
 }
 
 <h1 class="text-center">@Model.Title</h1>
@@ -36,12 +37,15 @@
     </div>
     <div class="col-md-6 col-md-offset-1">
         <h2>Required amount: <span class="text-info">@Math.Floor(Model.RequredMoney).ToString("N", new CultureInfo("en-US"))$</span></h2>
-        <h2>Current amount:  <span class="text-info" id="targetSpan">Required money</span></h2>       
+        <h2>Current amount:  <span class="text-info" id="targetSpan">Required money</span></h2>  
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.Partial("_BookMoneyAdder", modelForPartial)
+        }
     </div>
 </div>
 
 @section scripts{
-
 <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
 <script src="~/signalr/hubs"  type="text/javascript"></script>
 <!--SignalR script to update the chat page and send messages.-->

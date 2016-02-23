@@ -255,6 +255,7 @@
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\UserProfile\UserChangeInfoModel.cs" />
     <Compile Include="ViewModels\UserProfile\UserInfoModel.cs" />
+    <Compile Include="ViewModels\UserProfile\UserMoneyModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Errors\404-opt.png" />
@@ -280,6 +281,7 @@
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\Index.cshtml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
+    <Content Include="Scripts\Custom\BookMoneyAdder.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -337,6 +339,7 @@
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Shared\_FileUpload.cshtml" />
     <Content Include="Views\Books\FileUpdate.cshtml" />
+    <Content Include="Views\Shared\_BookMoneyAdder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

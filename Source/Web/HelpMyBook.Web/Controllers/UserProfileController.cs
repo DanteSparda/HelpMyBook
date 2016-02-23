@@ -68,12 +68,25 @@
             {
                 user.Name = model.Name;
             }
-            
+
             this.users.Update(user);
 
             this.TempData[GlobalConstants.MessageNameSuccess] = "You've successfuly updated your profile!";
 
             return this.RedirectToAction("Info");
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddFunds(string id)
+        {
+            var user = this.users.GetUser(id);
+
+            user.Money += 2000;
+            this.users.Update(user);
+            this.TempData[GlobalConstants.MessageNameSuccess] = $"You've received 2000$";
+            return RedirectToAction("Info");
         }
     }
 }

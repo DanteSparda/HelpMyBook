@@ -5,6 +5,7 @@
     using Common;
     using HelpMyBook.Data.Models;
     using HelpMyBook.Web.Infrastructure.Mapping;
+    using UserProfile;
 
     public class BookDetailsViewModel : IMapFrom<Book>
     {
@@ -20,6 +21,8 @@
         public string Description { get; set; }
 
         public decimal RequredMoney { get; set; }
+
+        public UserMoneyModel MoneyPartialModel { get; set; }
 
         public virtual BookFile BookFile { get; set; }
 

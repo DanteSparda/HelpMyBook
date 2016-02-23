@@ -11,18 +11,20 @@
     using Infrastructure.Mapping;
     using Microsoft.AspNet.Identity;
     using ViewModels.Books;
-
+    using ViewModels.UserProfile;
     public class BooksController : BaseController
     {
         private readonly IUserService users;
         private readonly IBookService books;
         private readonly IFilesService files;
+        private readonly IDonationsService donations;
 
-        public BooksController(IUserService users, IBookService books, IFilesService files)
+        public BooksController(IUserService users, IBookService books, IFilesService files, IDonationsService donations)
         {
             this.users = users;
             this.books = books;
             this.files = files;
+            this.donations = donations;
         }
 
         [HttpGet]
@@ -99,8 +101,6 @@
 
             this.users.BindBookAndUser(user.Id, creationResult.Id);
 
-            //user.BookId = creationResult.Id;
-
             this.TempData.Clear();
 
             this.TempData[GlobalConstants.MessageNameSuccess] = "You've successfuly created a book!";
@@ -128,6 +128,13 @@
                 {
                     viewmodel.OwnerLooking = true;
                 }
+
+                viewmodel.MoneyPartialModel = new UserMoneyModel()
+                {
+                    UserId = user.Id,
+                    BookId = viewmodel.Id,
+                    Money = user.Money
+                };
             }
 
             return this.View(viewmodel);
@@ -177,7 +184,7 @@
         [Authorize]
         public ActionResult FileUpdate(int bookId)
         {
-           var fileId = this.books.GetBookDetails(bookId).FirstOrDefault().BookFileId;
+            var fileId = this.books.GetBookDetails(bookId).FirstOrDefault().BookFileId;
             var model = new BookFileUpdateModel
             {
                 BookFileId = fileId,
@@ -246,6 +253,39 @@
                 }
             }
 
+            return this.RedirectToAction("Details", new { id = model.BookId });
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Contribute(UserMoneyModel model)
+        {
+            if (model.Money < model.Contribution)
+            {
+                this.TempData[GlobalConstants.MessageNameError] = "You can't contribute more than you have!";
+                return this.RedirectToAction("Details", new { id = model.BookId });
+            }
+
+            if (model.Contribution == 0)
+            {
+                this.TempData[GlobalConstants.MessageNameError] = "You can't contribute 0$!";
+                return this.RedirectToAction("Details", new { id = model.BookId });
+            }
+
+            var user = this.users.GetUser(model.UserId);
+
+            var donation = new Donation()
+            {
+                DonatorId = user.Id,
+                Amount = model.Contribution,
+                BookId = model.BookId
+            };
+
+            this.donations.Add(donation);
+            user.Money -= model.Contribution;
+            this.users.Update(user);
+            this.TempData[GlobalConstants.MessageNameSuccess] = $"Thank you for your donation ({model.Contribution})";
             return this.RedirectToAction("Details", new { id = model.BookId });
         }
     }

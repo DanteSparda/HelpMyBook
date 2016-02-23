@@ -1,0 +1,30 @@
+﻿@model HelpMyBook.Web.ViewModels.UserProfile.UserMoneyModel
+
+@using System.Globalization;
+
+<div class="container">
+    @if (Model.Money > 0)
+    {
+
+
+        <span class="text-info" style="font-size:20px">You can contribute to this book if you want</span>
+        <br />
+        using (Html.BeginForm("Contribute", "Books", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.BookId)
+            @Html.HiddenFor(m => m.UserId)
+            @Html.HiddenFor(m => m.Money)
+            <input type="number" id="Contribution" name="Contribution" class="form-control" />
+            <input type="submit" id="submit" class="btn btn-success" value="Contribute" />
+        }
+        <div id="busydiv" style="display:none;"><img src="http://preloaders.net/preloaders/99/Animated%20book-128.gif" alt="loading"/></div>
+        <span class="text-info">Currently You have <span class="text-info">@Model.Money.ToString("N", new CultureInfo("en-US"))$</span></span>
+    }
+    else
+    {
+        <span class="text-info">Currently You have <span class="text-danger">@Model.Money.ToString("N", new CultureInfo("en-US"))$</span></span>
+        <br />
+        <span class="text-info" >Add funds if you want to help other authors!</span>
+    }
+</div>

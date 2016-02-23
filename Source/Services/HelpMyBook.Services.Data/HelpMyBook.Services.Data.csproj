@@ -63,10 +63,12 @@
     <Compile Include="CategoriesService.cs" />
     <Compile Include="Contracts\IBookService.cs" />
     <Compile Include="Contracts\ICategoriesService.cs" />
+    <Compile Include="Contracts\IDonationsService.cs" />
     <Compile Include="Contracts\IFilesService.cs" />
     <Compile Include="Contracts\IJokesService.cs" />
     <Compile Include="BookService.cs" />
     <Compile Include="Contracts\IUserService.cs" />
+    <Compile Include="DonationsService.cs" />
     <Compile Include="FilesService.cs" />
     <Compile Include="JokesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
