@@ -6,7 +6,7 @@
 	
 ### Home screen
 The home page displays 3 random books, caching them for 1 hour
-![Home Screen](https://rawgit.com/DanteSparda/HelpMyBook/master/Screenshots/Home.png)
+![Home Screen](https://rawgit.com/DanteSparda/HelpMyBook/master/Screenshots/HomeIndex.png)
 ## Books Creation
 The books creation page let's you create a book (if you haven't already). It uses google's recaptcha
 and supports file upload
