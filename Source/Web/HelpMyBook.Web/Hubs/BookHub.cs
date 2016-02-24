@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR;
-
-namespace HelpMyBook.Web.Hubs
+﻿namespace HelpMyBook.Web.Hubs
 {
+    using Microsoft.AspNet.SignalR;
+
     public class BookHub : Hub
     {
         public static void Show()

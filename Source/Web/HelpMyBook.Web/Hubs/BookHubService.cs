@@ -22,7 +22,7 @@
                     SqlDependency.Start(connection.ConnectionString);
 
                     SqlDependency dependency = new SqlDependency(command);
-                    dependency.OnChange += new OnChangeEventHandler(this.dependency_OnChange);
+                    dependency.OnChange += new OnChangeEventHandler(this.Dependency_OnChange);
 
                     if (connection.State == ConnectionState.Closed)
                     {
@@ -38,7 +38,7 @@
             }
         }
 
-        private void dependency_OnChange(object sender, SqlNotificationEventArgs e)
+        private void Dependency_OnChange(object sender, SqlNotificationEventArgs e)
         {
             BookHub.Show();
         }

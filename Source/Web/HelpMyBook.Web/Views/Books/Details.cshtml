@@ -1,5 +1,5 @@
 ﻿@model HelpMyBook.Web.ViewModels.Books.BookDetailsViewModel
-    @using System.Globalization;
+@using System.Globalization;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var modelForPartial = Model.MoneyPartialModel;
@@ -15,11 +15,10 @@
         </div>
         <br /><br />
         @if (Model.BookFile != null)
+        {
+            if (Model.BookFile.Downloadable)
             {
-                if (Model.BookFile.Downloadable)
-                {
                 @Ajax.ActionLink("Download this book", "DownloadBook", "Files", new { id = Model.BookFile.Id }, new AjaxOptions { HttpMethod = "GET" }, new { @class = "btn btn-lg btn-warning" })
-
             }
             else
             {
@@ -30,14 +29,15 @@
         {
             <h3>The book isn't uploaded</h3>
         }
+
         @if (Model.OwnerLooking)
-            {
+        {
             @Ajax.ActionLink("Edit book", "Edit", new { id = Model.Id }, new AjaxOptions { HttpMethod = "GET" }, new { @class = "btn btn-lg btn-primary" })
         }
     </div>
     <div class="col-md-6 col-md-offset-1">
         <h2>Required amount: <span class="text-info">@Math.Floor(Model.RequredMoney).ToString("N", new CultureInfo("en-US"))$</span></h2>
-        <h2>Current amount:  <span class="text-info" id="targetSpan">Required money</span></h2>  
+        <h2>Current amount:  <span class="text-info" id="targetSpan">Required money</span></h2>
         @if (User.Identity.IsAuthenticated)
         {
             @Html.Partial("_BookMoneyAdder", modelForPartial)
@@ -46,10 +46,10 @@
 </div>
 
 @section scripts{
-<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-<script src="~/signalr/hubs"  type="text/javascript"></script>
-<!--SignalR script to update the chat page and send messages.-->
-<script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <!--SignalR script to update the chat page and send messages.-->
+    <script>
     $(function () {
 
         // Proxy created on the fly
@@ -72,10 +72,10 @@
             type: 'GET',
             data: {id: @Model.Id},
             datatype: 'json',
-            success: function (result) {     
+            success: function (result) {
               $spanForResult.html(result + "$");
             }
         });
     }
-</script>
+    </script>
 }

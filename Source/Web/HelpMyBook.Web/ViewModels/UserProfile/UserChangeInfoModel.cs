@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HelpMyBook.Web.ViewModels.UserProfile
+﻿namespace HelpMyBook.Web.ViewModels.UserProfile
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class UserChangeInfoModel
     {
         public string Id { get; set; }
@@ -16,9 +11,6 @@ namespace HelpMyBook.Web.ViewModels.UserProfile
 
         [MaxLength(120)]
         public string Name { get; set; }
-
-        //[MinLength(3)]
-        //public string Username { get; set; }
 
         [MaxLength(500)]
         [Display(Name="Personal Info")]

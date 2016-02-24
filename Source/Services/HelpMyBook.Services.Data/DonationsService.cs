@@ -1,14 +1,9 @@
-﻿using HelpMyBook.Services.Data.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelpMyBook.Data.Models;
-using HelpMyBook.Data.Common;
-
-namespace HelpMyBook.Services.Data
+﻿namespace HelpMyBook.Services.Data
 {
+    using HelpMyBook.Data.Common;
+    using HelpMyBook.Data.Models;
+    using HelpMyBook.Services.Data.Contracts;
+
     public class DonationsService : IDonationsService
     {
         private readonly IDbRepository<Donation> donations;

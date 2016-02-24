@@ -7,7 +7,7 @@
     public class BookCreateModel
     {
         public HttpPostedFileBase File { get; set; }
-        
+
         [Required]
         [MaxLength(ValidationConstants.BookTitleMaximum)]
         public string Title { get; set; }

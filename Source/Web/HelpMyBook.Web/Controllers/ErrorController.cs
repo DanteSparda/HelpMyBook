@@ -1,7 +1,8 @@
 ﻿namespace MvcTemplate.Web.Controllers
 {
-    using HelpMyBook.Web.ViewModels.Error;
     using System.Web.Mvc;
+    using HelpMyBook.Web.ViewModels.Error;
+
     public class ErrorController : Controller
     {
         public ActionResult NotFound()

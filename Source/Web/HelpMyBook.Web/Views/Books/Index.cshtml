@@ -1,0 +1,46 @@
+﻿@model HelpMyBook.Web.ViewModels.Books.BookIndexDataModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (User.Identity.IsAuthenticated && !Model.HasBook)
+{
+    <br />
+    @Html.ActionLink("Create your book!", "Create", "Books", null, new { @class = "btn btn-primary btn-lg" })
+}
+@if (Model.Books.Count() <= 0)
+{
+    <h1>There are no books!</h1>
+}
+else
+{
+    <div class="row">
+        @foreach (var book in Model.Books)
+        {
+            <div class="col-md-5">
+                <h1 class="text-center">@book.Title</h1>
+                <div>
+                    <span>
+                        @book.Description
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        <strong>Downloadable?</strong>
+                    </span>
+                    @if (book.BookFile != null && book.BookFile.Downloadable)
+                    {
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                    }
+                </div>
+                @Html.ActionLink("Go to the details of the book", "Details", "Books", new { id = book.Id }, new { @class = "btn btn-primary center-block" })
+                <br />
+                <hr />
+            </div>
+        }
+    </div>
+}
+

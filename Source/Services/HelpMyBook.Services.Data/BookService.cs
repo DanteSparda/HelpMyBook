@@ -43,5 +43,15 @@
             this.books.Save();
             return book;
         }
+
+        public IQueryable<Book> GetHourlyBooks(int id)
+        {
+            return this.books.All().OrderBy(x => Guid.NewGuid()).Take(3);
+        }
+
+        public IQueryable<Book> GetDownloadableBooks()
+        {
+            return this.books.All().Where(x => x.BookFile.Downloadable == true);
+        }
     }
 }

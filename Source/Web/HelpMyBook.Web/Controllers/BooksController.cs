@@ -3,15 +3,16 @@
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Web;
     using System.Web.Mvc;
     using HelpMyBook.Common;
     using HelpMyBook.Data.Models;
     using HelpMyBook.Services.Data.Contracts;
     using Infrastructure.Mapping;
     using Microsoft.AspNet.Identity;
+    using reCAPTCHA.MVC;
     using ViewModels.Books;
     using ViewModels.UserProfile;
+
     public class BooksController : BaseController
     {
         private readonly IUserService users;
@@ -31,20 +32,24 @@
         [Authorize]
         public ActionResult Create()
         {
-            //    var user = this.users.GetUser(this.User.Identity.GetUserId());
-            //    if (user.BookId != null)
-            //    {
-            //        this.TempData.Clear();
-            //        this.TempData[GlobalConstants.MessageNameError] = "You've already created a book!";
+            var user = this.users.GetUser(this.User.Identity.GetUserId());
+            if (user.BookId != null)
+            {
+                this.TempData.Clear();
+                this.TempData[GlobalConstants.MessageNameError] = "You've already created a book!";
 
-            //        return this.Redirect("/");
-            //    }
+                return this.Redirect("/");
+            }
 
             return this.View();
         }
 
         [HttpPost]
         [Authorize]
+        [CaptchaValidator(
+        PrivateKey = "6LcfKBkTAAAAAHpUhmpjNks48KyW6g9ITJHFUj2i",
+        ErrorMessage = "Invalid input captcha.",
+        RequiredMessage = "The captcha field is required.")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(BookCreateModel model, bool downloadable)
         {
@@ -109,9 +114,32 @@
         }
 
         [HttpGet]
+        public ActionResult Index()
+        {
+            var books = this.books.GetBooks().To<BookIndexViewModel>().ToList();
+            var hasBook = false;
+            if (this.User.Identity.IsAuthenticated)
+            {
+                var user = this.users.GetUser(this.User.Identity.GetUserId());
+                if (user.BookId != null)
+                {
+                    hasBook = true;
+                }
+            }
+
+            var model = new BookIndexDataModel()
+            {
+                Books = books,
+                HasBook = hasBook
+            };
+
+            return this.View(model);
+        }
+
+        [HttpGet]
         public ActionResult Downloads()
         {
-            var books = this.books.GetBooks().To<BookViewModel>().ToList();
+            var books = this.books.GetDownloadableBooks().To<BookViewModel>().ToList();
 
             return this.View(books);
         }
@@ -150,7 +178,7 @@
             if (user.BookId != id)
             {
                 this.TempData[GlobalConstants.MessageNameError] = "You are not allowed to edit this book!";
-                return this.View("Details", new { id = id });
+                return this.RedirectToAction("Details", new { id = id });
             }
 
             return this.View(viewmodel);
@@ -177,7 +205,6 @@
             this.TempData[GlobalConstants.MessageNameSuccess] = "You've successfuly created a book!";
 
             return this.RedirectToAction("Details", new { id = creationResult.Id });
-
         }
 
         [HttpGet]
@@ -220,15 +247,6 @@
                 {
                     model.File.InputStream.CopyTo(memory);
                     var content = memory.GetBuffer();
-
-                    /*
-                    take book
-                    see if has file id
-                    if not book.bookfile = new bookfile
-                    save
-                    if has 
-                    book.bookfile.props = blabla
-                    */
                     var book = this.books.GetBookDetails(model.BookId).FirstOrDefault();
                     if (book.BookFileId == null)
                     {
@@ -248,8 +266,7 @@
                         book.BookFile.FileExtension = fileExtention;
                     }
 
-                    var result = books.Update(book);
-
+                    var result = this.books.Update(book);
                 }
             }
 
@@ -285,7 +302,7 @@
             this.donations.Add(donation);
             user.Money -= model.Contribution;
             this.users.Update(user);
-            this.TempData[GlobalConstants.MessageNameSuccess] = $"Thank you for your donation ({model.Contribution})";
+            this.TempData[GlobalConstants.MessageNameSuccess] = $"Thank you for your donation ({model.Contribution}$)";
             return this.RedirectToAction("Details", new { id = model.BookId });
         }
     }

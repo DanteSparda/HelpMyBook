@@ -7,8 +7,6 @@
 
     public class BookFile : BaseModel<int>
     {
-        // [Key]
-        // [ForeignKey("Book")]
         public override int Id { get; set; }
 
         [Required]
@@ -23,10 +21,5 @@
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
-
-        //[ForeignKey("Book")]
-        //public virtual Book Book { get; set; }
-
-        //public int BookId { get; set; }
     }
 }

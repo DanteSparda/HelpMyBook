@@ -3,7 +3,6 @@
     using System;
     using System.Data.Entity;
     using System.Linq;
-
     using Common.Models;
     using HelpMyBook.Data.Models;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -13,17 +12,12 @@
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-
         }
-
-        public IDbSet<Joke> Jokes { get; set; }
-
-        public IDbSet<JokeCategory> JokesCategories { get; set; }
 
         public IDbSet<Book> Books { get; set; }
 
         public IDbSet<BookFile> BookFiles { get; set; }
-        
+
         public IDbSet<Donation> Donations { get; set; }
 
         public static ApplicationDbContext Create()
@@ -40,12 +34,10 @@
             }
             catch (Exception ex)
             {
-                var exa = ex; 
+                var exa = ex;
                 throw;
             }
         }
-
-
 
         private void ApplyAuditInfoRules()
         {

@@ -1,8 +1,8 @@
 ﻿namespace HelpMyBook.Services.Data
 {
-    using Microsoft.AspNet.Identity;
     using HelpMyBook.Data.Models;
     using HelpMyBook.Services.Data.Contracts;
+    using Microsoft.AspNet.Identity;
 
     public class UserService : IUserService
     {
@@ -23,13 +23,13 @@
 
         public ApplicationUser GetUser(string id)
         {
-            var user = users.FindById(id);
+            var user = this.users.FindById(id);
             return user;
         }
 
         public void Update(ApplicationUser user)
         {
-            users.Update(user);
+            this.users.Update(user);
         }
     }
 }

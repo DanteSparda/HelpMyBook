@@ -4,57 +4,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="row">
+    <div class="col-md-8">
+        @using (Html.BeginForm("ChangeInfo", "UserProfile", new { id = Model.Id }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
 
-@using (Html.BeginForm("ChangeInfo", "UserProfile", new { id = Model.Id }, FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-
-    <h4>Update your account.</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-8">
-            <div class="form-group">
-                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                </div>
-            </div>
-            <br />
-            @*<div class="form-group">
-                    @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+            <h4>Update your account.</h4>
+            <hr />
+            <div>
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        </div>
                     </div>
-                </div>*@
-            <br />
-            <div class="form-group">
-                <label for="avatar" class="col-md-2 control-label">Avatar Url</label>
-                <div class="col-md-10">
-                    <input type="url" id="avatar" class="form-control" name="AvatarUrl" />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label for="avatar" class="col-md-2 control-label">Avatar Url</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.AvatarUrl, new { @class = "form-control", id= "avatar" })
+                            @*<input type="url" id="avatar" class="form-control" name="AvatarUrl" />*@
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                            @Html.LabelFor(m => m.PersonalInfo, new { @class = "col-md-2 control-label" })
+                    </div>
+                    <div class="col-md-10">
+                        <textarea name="PersonalInfo" id="PersonalInfo" class="form-control">@Model.PersonalInfo</textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-default" value="Register" />
+                        </div>
+                    </div>
                 </div>
             </div>
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(m => m.PersonalInfo, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    <textarea name="PersonalInfo" id="PersonalInfo" class="form-control">@Model.PersonalInfo</textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Register" />
-                </div>
-            </div>
-        </div>
+        }
     </div>
-}
-<div class="col-md-4">
-    <span>Here you can see if your avatar is displayed</span>
-    <hr />
-    <img src=@Model.AvatarUrl id="avatarView" style="width:200px;height:200px" alt="Avatar url" />
+    <div class="col-md-3">
+        <span>Here you can see if your avatar is displayed</span>
+        <hr />
+        <img src=@Model.AvatarUrl id="avatarView" style="width:200px;height:200px" alt="If you don't see your picture here the url isn't working!" />
+    </div>
 </div>
-
 
 @section scripts{
     <script>

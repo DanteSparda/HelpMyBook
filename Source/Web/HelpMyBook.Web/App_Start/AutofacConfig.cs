@@ -8,12 +8,12 @@
     using Controllers;
     using Data;
     using Data.Common;
-    using Services.Data;
-    using Services.Data.Contracts;
-    using Services.Web;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using Data.Models;
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Services.Data.Contracts;
+    using Services.Web;
+
     public static class AutofacConfig
     {
         public static void RegisterAutofac()
@@ -60,7 +60,7 @@
                     .As<IUserStore<ApplicationUser>>();
             builder.RegisterType<UserManager<ApplicationUser>>();
 
-            var servicesAssembly = Assembly.GetAssembly(typeof(IJokesService));
+            var servicesAssembly = Assembly.GetAssembly(typeof(IBookService));
             builder.RegisterAssemblyTypes(servicesAssembly).AsImplementedInterfaces();
 
             builder.RegisterGeneric(typeof(DbRepository<>))

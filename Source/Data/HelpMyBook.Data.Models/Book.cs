@@ -1,14 +1,10 @@
-﻿using HelpMyBook.Common;
-using HelpMyBook.Data.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HelpMyBook.Data.Models
+﻿namespace HelpMyBook.Data.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using HelpMyBook.Common;
+    using HelpMyBook.Data.Common.Models;
+
     public class Book : BaseModel<int>
     {
         public Book()

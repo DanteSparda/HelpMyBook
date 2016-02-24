@@ -2,11 +2,12 @@
 {
     using System.Web.Mvc;
     using AutoMapper;
+    using Common;
     using Data.Models;
     using HelpMyBook.Services.Data.Contracts;
     using Microsoft.AspNet.Identity;
     using ViewModels.UserProfile;
-    using Common;
+
     [Authorize]
     public class UserProfileController : BaseController
     {
@@ -86,7 +87,7 @@
             user.Money += 2000;
             this.users.Update(user);
             this.TempData[GlobalConstants.MessageNameSuccess] = $"You've received 2000$";
-            return RedirectToAction("Info");
+            return this.RedirectToAction("Info");
         }
     }
 }

@@ -21,10 +21,19 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = string.Empty }, null)</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Books", "Downloads", "Books", new { area = string.Empty }, null)</li>
-                    }
+
+                    <li>@Html.ActionLink("Books", "Index", "Books", new { area = string.Empty }, null)</li>
+
+                    <li>@Html.ActionLink("Downloads", "Downloads", "Books", new { area = string.Empty }, null)</li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Information<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Contacts", "Contacts", "Information", new { area = string.Empty }, null)</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("About us", "AboutUs", "Information", new { area = string.Empty }, null)</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -52,7 +61,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-   @* @Scripts.Render("~/bundles/unobtr-jq")*@
+    @* @Scripts.Render("~/bundles/unobtr-jq")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

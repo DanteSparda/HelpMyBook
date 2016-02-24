@@ -1,12 +1,8 @@
-﻿using HelpMyBook.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HelpMyBook.Services.Data.Contracts
+﻿namespace HelpMyBook.Services.Data.Contracts
 {
+    using System.Linq;
+    using HelpMyBook.Data.Models;
+
     public interface IBookService
     {
         Book Create(Book book);
@@ -16,5 +12,9 @@ namespace HelpMyBook.Services.Data.Contracts
         IQueryable<Book> GetBookDetails(int id);
 
         IQueryable<Book> GetBooks();
+
+        IQueryable<Book> GetHourlyBooks(int id);
+
+        IQueryable<Book> GetDownloadableBooks();
     }
 }

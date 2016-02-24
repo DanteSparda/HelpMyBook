@@ -1,13 +1,11 @@
 ﻿namespace HelpMyBook.Web.Controllers
 {
-    using System.Configuration;
-    using System.Data;
-    using System.Data.SqlClient;
+    using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
     using Hubs;
     using Services.Data.Contracts;
-    using System.Globalization;
+
     public class BookHubController : BaseController
     {
         private readonly IBookService books;
