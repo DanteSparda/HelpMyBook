@@ -8,9 +8,10 @@
 The home page displays 3 random books, caching them for 1 hour
 ![Home Screen](https://rawgit.com/DanteSparda/HelpMyBook/master/Screenshots/Home.png)
 ## Books Creation
-![Books Creation](https://rawgit.com/DanteSparda/HelpMyBook/master/Screenshots/BookCreation.png)
 The books creation page let's you create a book (if you haven't already). It uses google's recaptcha
 and supports file upload
+![Books Creation](https://rawgit.com/DanteSparda/HelpMyBook/master/Screenshots/BookCreation.png)
+
 ## Book Details
 This page includes title, description and the required amount for it's publishing.
 If a file is uploaded and is marked as downloadable the download button will appear
