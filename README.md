@@ -4,7 +4,7 @@
 ## Application structure
 ![Folder structure](https://rawgit.com/DanteSparda/HelpMyBook/master/Screenshots/Strucutre.png)
 	
-### Home screen
+## Home screen
 The home page displays 3 random books, caching them for 1 hour
 ![Home Screen](https://rawgit.com/DanteSparda/HelpMyBook/master/Screenshots/HomeIndex.png)
 ## Books Creation
